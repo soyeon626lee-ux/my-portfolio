@@ -58,7 +58,7 @@ npm run build
 
 ## 라이브 데모
 
-[GitHub Pages 링크 추가 예정]
+https://soyeon626lee-ux.github.io/my-portfolio/
 
 ## 라이선스
 
