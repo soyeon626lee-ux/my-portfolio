@@ -1,0 +1,584 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 모바일 앱 스타일 레이아웃 */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #666666;
+  color: var(--kakao-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+/* 모바일 컨테이너 */
+#root {
+  width: 100%;
+  max-width: 520px;
+  min-height: 100vh;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 카카오뱅크 스타일 색상 팔레트 */
+:root {
+  --kakao-blue: #4A90E2;
+  --kakao-yellow: #FFD93D;
+  --kakao-gray: #F5F6F7;
+  --kakao-dark-gray: #8E8E93;
+  --kakao-text: #1D1D1F;
+  --kakao-light-blue: #E3F2FD;
+  --kakao-light-yellow: #FFF8E1;
+}
+
+/* 모바일에서 스크롤 부드럽게 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 카카오뱅크 스타일 카드 */
+.kakao-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: none;
+  transition: all 0.2s ease;
+  margin: 0 16px;
+}
+
+.kakao-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* 2열 레이아웃 */
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* 요약 카드 그리드 */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.summary-card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.summary-card .label {
+  font-size: 12px;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.summary-card .value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--kakao-text);
+}
+
+/* 입력 필드 그룹 */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--kakao-text);
+  margin-bottom: 8px;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.input-with-button .kakao-input {
+  flex: 1;
+}
+
+.input-with-button .kakao-btn {
+  padding: 10px 12px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+/* 툴팁 스타일 */
+.tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: var(--kakao-blue);
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  margin-left: 4px;
+  cursor: help;
+}
+
+.tooltip-text {
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* 빠른 선택 칩 */
+.quick-select-chips {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.quick-select-chip {
+  padding: 6px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 16px;
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-select-chip:hover {
+  border-color: var(--kakao-blue);
+  color: var(--kakao-blue);
+}
+
+.quick-select-chip.selected {
+  background: var(--kakao-blue);
+  color: white;
+  border-color: var(--kakao-blue);
+}
+
+/* 체크박스 그룹 */
+.checkbox-group {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.checkbox-item:last-child {
+  margin-bottom: 0;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.checkbox-item label {
+  font-size: 12px;
+  color: #495057;
+  margin: 0;
+}
+
+/* 경고 배지 */
+.warning-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: #fff3cd;
+  color: #856404;
+  border-radius: 4px;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* 자동채움 배너 */
+.auto-fill-banner {
+  background: linear-gradient(135deg, var(--kakao-blue), #3A7BC8);
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auto-fill-banner h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.auto-fill-banner p {
+  font-size: 14px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.auto-fill-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.auto-fill-buttons .kakao-btn {
+  font-size: 12px;
+  padding: 10px 16px;
+}
+
+/* 카카오뱅크 스타일 버튼 */
+.kakao-btn {
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 14px 24px;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.kakao-btn-primary {
+  background: var(--kakao-blue);
+  color: white;
+}
+
+.kakao-btn-primary:hover {
+  background: #3A7BC8;
+  transform: translateY(-1px);
+}
+
+.kakao-btn-secondary {
+  background: var(--kakao-gray);
+  color: var(--kakao-text);
+}
+
+.kakao-btn-secondary:hover {
+  background: #E5E7EB;
+}
+
+.kakao-btn-small {
+  font-size: 11px;
+  padding: 8px 12px;
+}
+
+/* 카카오뱅크 스타일 입력 필드 */
+.kakao-input {
+  border: 2px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kakao-input:focus {
+  outline: none;
+  border-color: var(--kakao-blue);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* 큰 숫자 폰트 */
+.kakao-number {
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--kakao-text);
+}
+
+.kakao-number-large {
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--kakao-text);
+}
+
+/* 카카오뱅크 스타일 탭 */
+.kakao-tab {
+  padding: 12px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+}
+
+.kakao-tab-active {
+  background: var(--kakao-blue);
+  color: white;
+}
+
+.kakao-tab-inactive {
+  color: var(--kakao-dark-gray);
+}
+
+.kakao-tab-inactive:hover {
+  background: var(--kakao-gray);
+}
+
+/* 하단 네비게이션 바 */
+.bottom-nav {
+  background: white;
+  border-top: 1px solid #E5E7EB;
+  padding: 8px 0 20px 0;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  max-width: 520px;
+  z-index: 1000;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  color: var(--kakao-dark-gray);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.bottom-nav-item.active {
+  color: var(--kakao-blue);
+}
+
+.bottom-nav-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+/* 상단 헤더 */
+.top-header {
+  background: white;
+  padding: 16px 20px;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--kakao-text);
+}
+
+.header-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--kakao-dark-gray);
+}
+
+/* 진행 단계 스타일 */
+.progress-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.progress-step.completed {
+  background: var(--kakao-blue);
+  color: white;
+}
+
+.progress-step.current {
+  background: var(--kakao-yellow);
+  color: var(--kakao-text);
+}
+
+.progress-step.pending {
+  background: #E5E7EB;
+  color: var(--kakao-dark-gray);
+}
+
+/* 슬라이더 스타일 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 4px;
+  background: #E5E7EB;
+  outline: none;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--kakao-blue);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--kakao-blue);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 체크박스와 라디오 버튼 스타일 */
+input[type="checkbox"], input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--kakao-blue);
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F6F7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C7C7CC;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #AEAEB2;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 520px) {
+  #root {
+    max-width: 100%;
+    box-shadow: none;
+  }
+  
+  .bottom-nav {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .kakao-card {
+    margin: 0 16px;
+  }
+  
+  .two-column-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .kakao-number-large {
+    font-size: 28px;
+  }
+  
+  .kakao-number {
+    font-size: 20px;
+  }
+  
+  .kakao-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}
+
+/* 데스크톱에서 모바일 앱처럼 보이게 */
+@media (min-width: 521px) {
+  body {
+    background: #666666;
+    padding: 20px 0;
+  }
+  
+  #root {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .bottom-nav {
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+  padding: 0 16px;
+  padding-bottom: 100px; /* 하단 네비게이션 공간 */
+}
+
+/* 탭 네비게이션 */
+.tab-navigation {
+  background: white;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+/* 진행 단계 컨테이너 */
+.progress-container {
+  background: white;
+  padding: 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
