@@ -32,8 +32,9 @@ function App() {
   });
 
   const [investment, setInvestment] = useState('mmf');
+  const [challengeTab, setChallengeTab] = useState('티끌모아 태산');
 
-  const tabs = ['목표 설정', '자금 시뮬레이션', '저축 챌린지', '맞춤 상품 추천'];
+  const tabs = ['목표 설정', '자금 시뮬레이션', '저축 챌린지'];
 
   // 금융권 앱 UI 숫자 표기 규칙
   const formatCurrency = (amount, isSummary = false) => {
@@ -458,6 +459,21 @@ function App() {
             ▲ 상환 부담이 높습니다. 목표가/기간 조정 권고
           </p>
         </div>
+        
+        {/* 실제 대출 신청 안내 */}
+        <div className="mt-6 p-4 bg-gray-50 rounded-12">
+          <p className="text-sm text-gray-700 mb-3">
+            시뮬레이션 결과를 바탕으로 실제 내 집 마련을 진행하고 싶으시다면?
+          </p>
+          <button 
+            onClick={() => {
+              alert('주택 담보 대출 페이지로 이동하시겠습니까?\n\n※ 상환 부담이 높은 상황이므로 대출 조건을 재검토하시는 것을 권장합니다.');
+            }}
+            className="kakao-btn kakao-btn-secondary w-full"
+          >
+            주택 담보 대출 받기
+          </button>
+        </div>
       </div>
 
       {/* 실 주택가 모달 */}
@@ -495,6 +511,30 @@ function App() {
   const renderSimulationStep = () => (
     <div className="space-y-6">
       <div className="kakao-card p-6 fade-in">
+        <h3 className="text-lg font-bold mb-4">시나리오 가이드</h3>
+        <ul className="space-y-3 text-sm text-gray-700">
+          <li className="flex items-start">
+            <span className="text-blue-600 mr-2">•</span>
+            내 돈 부담액이 클수록 대출 월 상환액은 낮아집니다
+          </li>
+          <li className="flex items-start">
+            <span className="text-blue-600 mr-2">•</span>
+            챌린지로 월 저축액을 늘리면 내 돈 부담액 달성 시점이 단축됩니다
+          </li>
+          <li className="flex items-start">
+            <span className="text-blue-600 mr-2">•</span>
+            MMF/펀드 연동으로 복리 효과가 발생합니다
+          </li>
+        </ul>
+        
+        <div className="mt-4 p-4 bg-yellow-50 rounded-12">
+          <p className="text-yellow-800 text-sm">
+            ▲ 유의: 본 시뮬레이션은 참고용 가정이며, 실제 금리/한도/심사 결과와 다를 수 있습니다
+          </p>
+        </div>
+      </div>
+
+      <div className="kakao-card p-6 fade-in">
         <h2 className="text-xl font-bold mb-3">시뮬레이션 결과</h2>
         <p className="text-sm text-gray-600 mb-6">
           입력 값을 바탕으로 실제에 가까운 로드맵을 제시합니다
@@ -518,10 +558,6 @@ function App() {
             <span className="kakao-number">{formatCurrency(goalData.monthlySavings)}/월</span>
           </div>
                       <div className="flex justify-between items-center">
-              <span className="text-gray-600">챌린지 추가 절약</span>
-              <span className="kakao-number">{formatCurrency(totalAdditionalSavings)}/월</span>
-            </div>
-            <div className="flex justify-between items-center">
               <span className="text-gray-600">총 월 저축</span>
               <span className="kakao-number">{formatCurrency(goalData.monthlySavings + totalAdditionalSavings)}/월</span>
             </div>
@@ -541,18 +577,16 @@ function App() {
           </p>
         </div>
 
+        <div className="mt-4 p-4 bg-gray-50 rounded-12">
+          <span className="font-semibold text-gray-800">챌린지 추가 절약: ???원/월</span>
+        </div>
+
         <div className="flex space-x-3 mt-6">
           <button
-            onClick={() => setCurrentStep(1)}
-            className="kakao-btn kakao-btn-secondary flex-1"
-          >
-            이전
-          </button>
-          <button
             onClick={() => setActiveTab('저축 챌린지')}
-            className="kakao-btn kakao-btn-primary flex-1"
+            className="kakao-btn kakao-btn-primary w-full"
           >
-            챌린지
+            절약 챌린지로 내 집 마련 자금 더 모으기
           </button>
         </div>
       </div>
@@ -585,11 +619,48 @@ function App() {
 
   const renderChallengeStep = () => (
     <div className="space-y-6">
-      <div className="kakao-card p-6 fade-in">
-        <h2 className="text-xl font-bold mb-3">티끌 모아 태산</h2>
-        <p className="text-sm text-gray-600 mb-6">
-          작은 절약이 모여 내 집 마련 자금을 마련합니다
-        </p>
+      {/* 서브 탭 Segmented Control */}
+      <div className="sub-tab-container">
+        <div className="sub-tab-navigation">
+          <button
+            onClick={() => setChallengeTab('티끌모아 태산')}
+            className={`sub-tab ${
+              challengeTab === '티끌모아 태산' 
+                ? 'sub-tab-active' 
+                : 'sub-tab-inactive'
+            }`}
+          >
+            티끌모아 태산
+          </button>
+          <button
+            onClick={() => setChallengeTab('소셜 & 커뮤니티')}
+            className={`sub-tab ${
+              challengeTab === '소셜 & 커뮤니티' 
+                ? 'sub-tab-active' 
+                : 'sub-tab-inactive'
+            }`}
+          >
+            소셜 & 커뮤니티
+          </button>
+          <button
+            onClick={() => setChallengeTab('투자연동')}
+            className={`sub-tab ${
+              challengeTab === '투자연동' 
+                ? 'sub-tab-active' 
+                : 'sub-tab-inactive'
+            }`}
+          >
+            투자연동
+          </button>
+        </div>
+      </div>
+
+      {challengeTab === '티끌모아 태산' && (
+        <div className="kakao-card p-6 fade-in">
+          <h2 className="text-xl font-bold mb-3">티끌 모아 태산</h2>
+          <p className="text-sm text-gray-600 mb-6">
+            작은 절약이 모여 내 집 마련 자금을 마련합니다
+          </p>
         
         <div className="space-y-4">
           <label className="flex items-center p-4 border border-gray-200 rounded-12 cursor-pointer hover:bg-gray-50">
@@ -662,22 +733,25 @@ function App() {
           >
             자유적금 연결하기
           </button>
-          <button 
-            onClick={() => setActiveTab('맞춤 상품 추천')}
-            className="kakao-btn kakao-btn-primary w-full"
-          >
-            투자상품 추천받기
-          </button>
+
         </div>
       </div>
+      )}
 
-      <div className="kakao-card p-6 fade-in">
-        <h2 className="text-xl font-bold mb-3">소셜 & 커뮤니티</h2>
-        <p className="text-sm text-gray-600 mb-6">
-          친구와 함께 챌린지를 진행하고, 진행률을 공유하세요
-        </p>
+      {challengeTab === '소셜 & 커뮤니티' && (
+        <div className="kakao-card p-6 fade-in">
+          <h2 className="text-xl font-bold mb-3">소셜 & 커뮤니티</h2>
+          <p className="text-sm text-gray-600 mb-6">
+            친구와 함께 챌린지를 진행하고, 진행률을 공유하세요
+          </p>
         
         <div className="space-y-4">
+          <button className="kakao-btn kakao-btn-primary w-full">
+            모임통장 만들기
+          </button>
+          <button className="kakao-btn kakao-btn-secondary w-full">
+            적금/자동이체 신청
+          </button>
           <div className="p-4 border border-gray-200 rounded-12">
             <h4 className="font-semibold mb-2">공동 챌린지 만들기</h4>
             <p className="text-sm text-gray-600 mb-4">친구와 함께 1,000만원 모으기</p>
@@ -722,6 +796,71 @@ function App() {
           </button>
         </div>
       </div>
+      )}
+
+      {challengeTab === '투자연동' && (
+        <div className="kakao-card p-6 fade-in">
+          <h3 className="text-lg font-bold mb-4">투자 연동</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            단순 저축만 하는 대신, 투자 상품의 예상 수익률을 함께 반영해 목표 금액을 더 빨리 모을 수 있는 시나리오를 제공합니다
+          </p>
+          
+          <div className="space-y-4">
+            <label className="flex items-center p-4 border border-gray-200 rounded-12 cursor-pointer hover:bg-gray-50">
+              <input
+                type="radio"
+                name="investment"
+                value="mmf"
+                checked={investment === 'mmf'}
+                onChange={(e) => setInvestment(e.target.value)}
+                className="mr-4"
+              />
+              <div className="flex-1">
+                <div className="font-semibold flex items-center">
+                  MMF 박스
+                  <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">ℹ️</span>
+                </div>
+                <div className="text-sm text-gray-600">연 2.46%, 최대 5천만원까지 보관, 원하는 날 출금</div>
+                <button className="kakao-btn kakao-btn-primary kakao-btn-small mt-2">
+                  수익계산하기 &gt;
+                </button>
+              </div>
+            </label>
+
+            <label className="flex items-center p-4 border border-gray-200 rounded-12 cursor-pointer hover:bg-gray-50">
+              <input
+                type="radio"
+                name="investment"
+                value="fund"
+                checked={investment === 'fund'}
+                onChange={(e) => setInvestment(e.target.value)}
+                className="mr-4"
+              />
+              <div className="flex-1">
+                <div className="font-semibold flex items-center">
+                  펀드 연동
+                  <span className="ml-2 text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">⚠️</span>
+                </div>
+                <div className="text-sm text-gray-600">천원으로 시작하는 쉬운 투자</div>
+                <button className="kakao-btn kakao-btn-primary kakao-btn-small mt-2">
+                  나에게 맞는 펀드를 찾아보세요 [찾아보기]
+                </button>
+              </div>
+            </label>
+          </div>
+
+          <div className="mt-6 p-4 bg-blue-50 rounded-12">
+            <p className="text-blue-800 text-sm font-semibold mb-1">현재 전략으로 내 돈 부담액 달성까지 {achievementYears}년 0개월</p>
+            <p className="text-blue-800 text-sm">연 수익률 가정: {formatPercentage(0.0267)}, 총 월 저축: {formatCurrency(goalData.monthlySavings + totalAdditionalSavings)}</p>
+            <p className="text-blue-700 text-xs mt-2">
+              💡 연 수익률 {formatPercentage(0.0267)} + 월 저축 {formatCurrency(goalData.monthlySavings + totalAdditionalSavings)}로 모으면, 
+              목표 자금({formatCurrency(results.downPayment, true)})에 도달하기까지 {achievementYears}년 소요
+            </p>
+          </div>
+
+
+        </div>
+      )}
     </div>
   );
 
@@ -823,8 +962,6 @@ function App() {
         return renderSimulationStep();
       case '저축 챌린지':
         return renderChallengeStep();
-      case '맞춤 상품 추천':
-        return renderSocialStep();
       default:
         return renderGoalStep();
     }
@@ -841,14 +978,19 @@ function App() {
         </div>
       </div>
 
+      {/* 네비게이션 바 */}
+      <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <h1 className="text-lg font-bold text-gray-800 text-center">내 집 마련 플랜</h1>
+      </div>
+
       {/* 메인 탭 네비게이션 */}
       <div className="tab-navigation">
-        <div className="flex justify-between">
+        <div className="flex">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`kakao-tab ${
+              className={`kakao-tab flex-1 ${
                 activeTab === tab ? 'kakao-tab-active' : 'kakao-tab-inactive'
               }`}
             >
