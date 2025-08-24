@@ -375,107 +375,6 @@ function App() {
         <p className="text-xs text-gray-500 text-center mt-3">입력값은 브라우저에만 저장됩니다</p>
       </div>
 
-      <div className="kakao-card p-6 fade-in">
-        <h3 className="text-lg font-bold mb-4">요약</h3>
-        {goalData.address && (
-          <div className="mb-4 p-3 bg-gray-50 rounded-8">
-            <div className="text-sm text-gray-600">📍 {goalData.address}</div>
-          </div>
-        )}
-        <div className="summary-grid">
-          <div className="summary-card">
-            <div className="label">희망가</div>
-            <div className="value">{formatCurrency(results.homePriceKRW, true)}</div>
-          </div>
-          <div className="summary-card">
-            <div className="label">최대 대출</div>
-            <div className="value">{formatCurrency(results.maxLoan, true)}</div>
-          </div>
-          <div className="summary-card">
-            <div className="label">필요 자기자본</div>
-            <div className="value">{formatCurrency(results.downPayment, true)}</div>
-            <div className="text-xs text-gray-500 mt-1">(내 돈 부담액)</div>
-          </div>
-          <div className="summary-card">
-            <div className="label">예상 월 상환액</div>
-            <div className="value">{formatCurrency(Math.round(results.monthlyPayment))}</div>
-            <div className="mt-2">
-              <label className="flex items-center text-xs">
-                <input
-                  type="checkbox"
-                  checked={stressDSR}
-                  onChange={(e) => setStressDSR(e.target.checked)}
-                  className="mr-1"
-                />
-                스트레스 DSR 적용
-                <span className="tooltip-icon ml-1" title="스트레스 DSR은 금리가 오를 때를 가정해 계산하는 보수적 기준이에요. 금리 +1.5%로 다시 계산해 드려요.">ⓘ</span>
-              </label>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-6 p-4 bg-blue-50 rounded-12">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-600">1년 전망 진행률</span>
-            <span className="text-sm font-semibold text-blue-600">13%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-3">
-            <div className="bg-blue-600 h-3 rounded-full" style={{width: '13%'}}></div>
-          </div>
-          <p className="text-blue-700 text-xs mt-2">
-            보유 현금 + (12×월 저축) ÷ 필요 자기자본
-          </p>
-        </div>
-      </div>
-
-
-
-      <div className="kakao-card p-6 fade-in">
-        <h3 className="text-lg font-bold mb-4">리스크 가이드</h3>
-        <ul className="space-y-3 text-sm text-gray-700">
-          <li className="flex items-start">
-            <span className="text-red-500 mr-2">•</span>
-            월 상환액이 월 소득의 35%를 넘는 경우 경고 배지 표시
-          </li>
-          <li className="flex items-start">
-            <span className="text-red-500 mr-2">•</span>
-            투자 수익률은 변동 가능하며, 펀드는 원금 손실이 발생할 수 있습니다
-          </li>
-        </ul>
-        
-        <div className="mt-4 p-4 bg-red-50 rounded-12">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-gray-600">월 소득</span>
-            <span className="font-semibold">{formatCurrency(goalData.monthlyIncome)}</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-gray-600">월 상환액</span>
-            <span className="font-semibold text-red-600">
-              {formatCurrency(Math.round(results.monthlyPayment))}
-              {stressDSR && <span className="text-xs text-orange-600 ml-1">(스트레스)</span>}
-            </span>
-          </div>
-          <p className="text-red-600 text-sm mt-2 font-semibold">
-            ▲ 상환 부담이 높습니다. 목표가/기간 조정 권고
-          </p>
-        </div>
-        
-        {/* 실제 대출 신청 안내 */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-12">
-          <p className="text-sm text-gray-700 mb-3">
-            시뮬레이션 결과를 바탕으로 실제 내 집 마련을 진행하고 싶으시다면?
-          </p>
-          <button 
-            onClick={() => {
-              alert('주택 담보 대출 페이지로 이동하시겠습니까?\n\n※ 상환 부담이 높은 상황이므로 대출 조건을 재검토하시는 것을 권장합니다.');
-            }}
-            className="kakao-btn kakao-btn-secondary w-full"
-          >
-            주택 담보 대출 받기
-          </button>
-        </div>
-      </div>
-
       {/* 실 주택가 모달 */}
       {showHousePriceModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -591,27 +490,104 @@ function App() {
         </div>
       </div>
 
+      {/* 요약 카드 */}
       <div className="kakao-card p-6 fade-in">
-        <h3 className="text-lg font-bold mb-4">시나리오 가이드</h3>
+        <h3 className="text-lg font-bold mb-4">요약</h3>
+        {goalData.address && (
+          <div className="mb-4 p-3 bg-gray-50 rounded-8">
+            <div className="text-sm text-gray-600">📍 {goalData.address}</div>
+          </div>
+        )}
+        <div className="summary-grid">
+          <div className="summary-card">
+            <div className="label">희망가</div>
+            <div className="value">{formatCurrency(results.homePriceKRW, true)}</div>
+          </div>
+          <div className="summary-card">
+            <div className="label">최대 대출</div>
+            <div className="value">{formatCurrency(results.maxLoan, true)}</div>
+          </div>
+          <div className="summary-card">
+            <div className="label">필요 자기자본</div>
+            <div className="value">{formatCurrency(results.downPayment, true)}</div>
+            <div className="text-xs text-gray-500 mt-1">(내 돈 부담액)</div>
+          </div>
+          <div className="summary-card">
+            <div className="label">예상 월 상환액</div>
+            <div className="value">{formatCurrency(Math.round(results.monthlyPayment))}</div>
+            <div className="mt-2">
+              <label className="flex items-center text-xs">
+                <input
+                  type="checkbox"
+                  checked={stressDSR}
+                  onChange={(e) => setStressDSR(e.target.checked)}
+                  className="mr-1"
+                />
+                스트레스 DSR 적용
+                <span className="tooltip-icon ml-1" title="스트레스 DSR은 금리가 오를 때를 가정해 계산하는 보수적 기준이에요. 금리 +1.5%로 다시 계산해 드려요.">ⓘ</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-6 p-4 bg-blue-50 rounded-12">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm text-gray-600">1년 전망 진행률</span>
+            <span className="text-sm font-semibold text-blue-600">13%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="bg-blue-600 h-3 rounded-full" style={{width: '13%'}}></div>
+          </div>
+          <p className="text-blue-700 text-xs mt-2">
+            보유 현금 + (12×월 저축) ÷ 필요 자기자본
+          </p>
+        </div>
+      </div>
+
+      {/* 리스크 가이드 카드 */}
+      <div className="kakao-card p-6 fade-in">
+        <h3 className="text-lg font-bold mb-4">리스크 가이드</h3>
         <ul className="space-y-3 text-sm text-gray-700">
           <li className="flex items-start">
-            <span className="text-blue-600 mr-2">•</span>
-            내 돈 부담액이 클수록 대출 월 상환액은 낮아집니다
+            <span className="text-red-500 mr-2">•</span>
+            월 상환액이 월 소득의 35%를 넘는 경우 경고 배지 표시
           </li>
           <li className="flex items-start">
-            <span className="text-blue-600 mr-2">•</span>
-            챌린지로 월 저축액을 늘리면 내 돈 부담액 달성 시점이 단축됩니다
-          </li>
-          <li className="flex items-start">
-            <span className="text-blue-600 mr-2">•</span>
-            MMF/펀드 연동으로 복리 효과가 발생합니다
+            <span className="text-red-500 mr-2">•</span>
+            투자 수익률은 변동 가능하며, 펀드는 원금 손실이 발생할 수 있습니다
           </li>
         </ul>
         
-        <div className="mt-4 p-4 bg-yellow-50 rounded-12">
-          <p className="text-yellow-800 text-sm">
-            ▲ 유의: 본 시뮬레이션은 참고용 가정이며, 실제 금리/한도/심사 결과와 다를 수 있습니다
+        <div className="mt-4 p-4 bg-red-50 rounded-12">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-gray-600">월 소득</span>
+            <span className="font-semibold">{formatCurrency(goalData.monthlyIncome)}</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-gray-600">월 상환액</span>
+            <span className="font-semibold text-red-600">
+              {formatCurrency(Math.round(results.monthlyPayment))}
+              {stressDSR && <span className="text-xs text-orange-600 ml-1">(스트레스)</span>}
+            </span>
+          </div>
+          <p className="text-red-600 text-sm mt-2 font-semibold">
+            ▲ 상환 부담이 높습니다. 목표가/기간 조정 권고
           </p>
+        </div>
+        
+        {/* 실제 대출 신청 안내 */}
+        <div className="mt-6 p-4 bg-gray-50 rounded-12">
+          <p className="text-sm text-gray-700 mb-3">
+            시뮬레이션 결과를 바탕으로 실제 내 집 마련을 진행하고 싶으시다면?
+          </p>
+          <button 
+            onClick={() => {
+              alert('주택 담보 대출 페이지로 이동하시겠습니까?\n\n※ 상환 부담이 높은 상황이므로 대출 조건을 재검토하시는 것을 권장합니다.');
+            }}
+            className="kakao-btn kakao-btn-secondary w-full"
+          >
+            주택 담보 대출 받기
+          </button>
         </div>
       </div>
     </div>
